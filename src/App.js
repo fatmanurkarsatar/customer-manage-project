@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import CustomerInput from './Components/CustomerInput/CustomerInput';
+import CustomerList from './Components/CustomerList/CustomerList';
 
 function App() {
+  const [customers, setCustomers] = useState([]);
+
+
+  const addNewCustomer = (newCustomer) =>{
+    // setCustomers([...customers, newCustomer]);
+    setCustomers((prevState) => [newCustomer, ...prevState]);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Customer Manage System</h1>
+      <CustomerInput addNewCustomer={addNewCustomer}/>
+      {customers.length === 0 && "there are no customers..."}
+      <CustomerList customers={customers} setCustomers={setCustomers}/>
+      
     </div>
   );
 }
